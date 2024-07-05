@@ -1,4 +1,4 @@
-// @ts-nocheck: since this script contains unsafe runtime checking
+
 /**
  * js runtime list
  * @since 0.0.1
@@ -17,7 +17,7 @@ export type jsEnvList =
  * node engine list
  * @since 0.0.1
  */
-export type jsEngineList = "v8" | "chakra" | "spidermonkey";
+export type jsEngineList = "v8" | "chakra" | "spidermonkey" | "javascriptCore";
 
 function isABrowser(): boolean {
     try {
@@ -49,13 +49,13 @@ export function env(legacy: boolean = false): jsEnvList | undefined {
         typeof self !== "undefined" &&
         self.constructor.name ===
             "DedicatedWorkerGlobalScope"
-    ) returns = "webworker";
+    ) return "webworker";
     if (
         (legacy
             ? navigator.userAgent.includes("Node.js")
             : (navigator.userAgent.includes("jsdom")) ||
                 g().name === "nodejs")
-    ) returns = "jsdom";
+    ) return "jsdom";
     const p = Object.keys(proc().version)
     //@ts-ignore: ok
     if (typeof Deno !== "undefined" && p.includes("deno")) return "deno"
@@ -73,10 +73,12 @@ export function env(legacy: boolean = false): jsEnvList | undefined {
 }
 /**
  * detect the node engine. Such as ```v8```, and more
- * @since 0.0.1 with limited support for deno. On the newer version (<=0.2.2) it is fully compatible with deno
+ * @since 0.0.1 with limited support for deno. On the newer version (>=0.3.0) it is fully compatible with deno and bun
  */
 export function engine(): jsEngineList | undefined {
     if (env()==="deno" && Object.keys(proc().version).includes("v8")) return "v8"
+    //idk how to detect bun's javascriptCore version. But i wanna return it as a fallback for bun
+    if (env()==="bun") return "javascriptCore"
     //@ts-ignore: dang deno stop throwing this shit again
     const v = Object.keys(g().versions);
     if (v.includes("v8")) return "v8";
