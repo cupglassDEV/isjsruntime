@@ -10,13 +10,12 @@ Refer to JSR website [![JSRPackageSetup](https://img.shields.io/badge/How_to_ins
 <hr>
 
 # Isjsruntime
-<b>Update</b>: Standarize the return types of all functions
+<b>Update</b>: Full deno support (that means the `engine()` function worked!). Updated readme with consistent implementation (because of the [old repo](https://github.com/cupglassdev/isjsruntime-legacy))
 <br>
 
-Only contains 2 function (which on fails, return `undefined`)
-- `env()` for detecting javascript runtime. Contains one optional parameter (boolean) for enabling the legacy detector for JSDOM, and
+Only contains 2 non-async function (which on fails, return `undefined`)
+- `env(legacy=false)` for detecting javascript runtime. Contains one optional parameter (boolean) for enabling the legacy detector for JSDOM, and
 - `engine()` for detecting javascript engine. No parameters required
-
 
 And 2 types
 - `jsEngineList` list of accepted engine such as `v8`, etc.
@@ -26,11 +25,11 @@ And 2 types
 ```ts
 // import the package
 import * isjs from '@cupglassdev/isjsruntime'
-// make an async function
-async function run(){
+// make a function
+function run(){
 // check using the env() function
-const env = await isjs.env()
-if (typeof env !== "undefined" && env==='bun'){ 
+const env = isjs.env()
+if (env==='bun'){ 
   console.log('you are on bun')
 } else {
   throw new Error('it looks like you are using another js enviroment')
@@ -46,7 +45,7 @@ import * as isjs from '@cupglassdev/isjsruntime'
 function isusingv8() {
 // check using the engine() function
 const engine = isjs.engine()
-if (typeof engine !== "undefined" && engine ==='v8') return true
+if (engine ==='v8') return true
 else return false;
 }
 //print it onto the console
