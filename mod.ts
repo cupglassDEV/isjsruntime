@@ -73,18 +73,13 @@ export function env(legacy: boolean = false): jsEnvList | undefined {
 }
 /**
  * detect the node engine. Such as ```v8```, and more
- * @since 0.0.1
+ * @since 0.0.1 with limited support for deno. On the newer version (<=0.2.2) it is fully compatible with deno
  */
 export function engine(): jsEngineList | undefined {
-    if (isABrowser()) {
-        throw new Error(
-            "This function only works if you arent in browser or deno",
-        );
-    }
+    if (env()==="deno" && Object.keys(proc().version).includes("v8")) return "v8"
     //@ts-ignore: dang deno stop throwing this shit again
-    const v = Object.keys(process.versions);
+    const v = Object.keys(g().versions);
     if (v.includes("v8")) return "v8";
     else if (v.includes("chakra")) return "chakra";
     else if (v.includes("spidermonkey")) return "spidermonkey";
 }
-
