@@ -10,9 +10,13 @@ Refer to JSR website [![JSRPackageSetup](https://img.shields.io/badge/How_to_ins
 <hr>
 
 # Isjsruntime
-Only contains 2 function
+<b>Update</b>: Standarize the return types of all functions
+<br>
+
+Only contains 2 function (which on fails, return `undefined`)
 - `env()` for detecting javascript runtime. Contains one optional parameter (boolean) for enabling the legacy detector for JSDOM, and
 - `engine()` for detecting javascript engine. No parameters required
+
 
 And 2 types
 - `jsEngineList` list of accepted engine such as `v8`, etc.
@@ -21,12 +25,13 @@ And 2 types
 ## Detect if running on bun (working with/without polyfill)
 ```ts
 // import the package
-import * isnode from '@cupglassdev/isnode'
+import * isjs from '@cupglassdev/isjsruntime'
 // make an async function
 async function run(){
 // check using the env() function
-if (await isnode.env()==='bun'){ 
-  console.log('you are in bun')
+const env = await isjs.env()
+if (typeof env !== "undefined" && env==='bun'){ 
+  console.log('you are on bun')
 } else {
   throw new Error('it looks like you are using another js enviroment')
 }
@@ -35,13 +40,15 @@ if (await isnode.env()==='bun'){
 run()
 ```
 ## detect if the node engine is running on v8
-```
-import isnode from '@cupglassdev/isnode'
+```ts
+import * as isjs from '@cupglassdev/isjsruntime'
 
 function isusingv8() {
 // check using the engine() function
-if (isnode.engine()==='v8') return true
+const engine = isjs.engine()
+if (typeof engine !== "undefined" && engine ==='v8') return true
 else return false;
-
 }
+//print it onto the console
+console.log(isusingv8())
 ```
