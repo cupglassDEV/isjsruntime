@@ -42,7 +42,7 @@ function proc(){
  * @since 0.0.1
  * @param legacy - enable the legacy mode for the jsdom detector. Because on the newer update they changed the useragent as `jsdom` rather than `Node.js`
  */
-export function env(legacy: boolean = false): jsEnvList | "others" {
+export function env(legacy: boolean = false): jsEnvList | undefined {
     
     // eslint-disable-next-line no-var
     if (
@@ -86,5 +86,5 @@ export function engine(): jsEngineList | undefined {
     if (v.includes("v8")) return "v8";
     else if (v.includes("chakra")) return "chakra";
     else if (v.includes("spidermonkey")) return "spidermonkey";
-    return undefined;
 }
+
