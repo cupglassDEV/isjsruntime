@@ -11,12 +11,12 @@ Refer to JSR website [![JSRPackageSetup](https://img.shields.io/badge/How_to_ins
 
 # Isjsruntime
 Only contains 2 function
-```env()``` for detecting javascript runtime. Contains one optional parameter (boolean) for enabling the legacy detector for JSDOM, and
-```engine()``` for detecting javascript engine. No parameters required
+- ```env()``` for detecting javascript runtime. Contains one optional parameter (boolean) for enabling the legacy detector for JSDOM, and
+- ```engine()``` for detecting javascript engine. No parameters required
 
 And 2 types
-```jsEngineList``` list of accepted engine such as `v8`, etc.
-```jsEnvList``` list of accepted javascript runtime
+- ```jsEngineList``` list of accepted engine such as `v8`, etc.
+- ```jsEnvList``` list of accepted javascript runtime
 
 ## Detect if running on bun (working with/without polyfill)
 ```ts
