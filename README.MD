@@ -10,7 +10,7 @@ Refer to JSR website [![JSRPackageSetup](https://img.shields.io/badge/How_to_ins
 <hr>
 
 # Isjsruntime
-<b>Update</b>: Full deno support (that means the `engine()` function worked!). Updated readme with consistent implementation (because of the [old repo](https://github.com/cupglassdev/isjsruntime-legacy))
+<b>Update</b>: Full deno support AND bun (that means the `engine()` function worked!). Updated readme with consistent implementation (because of the [old repo](https://github.com/cupglassdev/isjsruntime-legacy)). And now the script is typesafe!
 <br>
 
 Only contains 2 non-async function (which on fails, return `undefined`)
